@@ -1052,6 +1052,10 @@ const pageSelectorFromURLHash = (( ) => {
         uDom('.needdom').toggleClass('disabled', selectedTabId <= 0);
         uDom('.needscope').toggleClass('disabled', selectedTabId <= 0);
         lastSelectedTabId = selectedTabId;
+
+        const actAsThoughUserClickedFiltersAtTheStart = new MouseEvent('click');
+        const blocked = uDom('[data-i18n="loggerRowFiltererBuiltinBlocked"]').nodeAt(0);
+        blocked.dispatchEvent(actAsThoughUserClickedFiltersAtTheStart);
     };
 })();
 
