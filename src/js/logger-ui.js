@@ -44,6 +44,8 @@ let activeTabId = 0;
 let selectedTabId = 0;
 let netInspectorPaused = false;
 
+let isFirstTimeLoading = true;
+
 /******************************************************************************/
 
 // Various helpers.
@@ -1053,9 +1055,12 @@ const pageSelectorFromURLHash = (( ) => {
         uDom('.needscope').toggleClass('disabled', selectedTabId <= 0);
         lastSelectedTabId = selectedTabId;
 
-        const actAsThoughUserClickedFiltersAtTheStart = new MouseEvent('click');
-        const blocked = uDom('[data-i18n="loggerRowFiltererBuiltinBlocked"]').nodeAt(0);
-        blocked.dispatchEvent(actAsThoughUserClickedFiltersAtTheStart);
+        if (isFirstTimeLoading) {
+          isFirstTimeLoading = false;
+          const actAsThoughUserClickedFiltersAtTheStart = new MouseEvent('click');
+          const blocked = uDom('[data-i18n="loggerRowFiltererBuiltinBlocked"]').nodeAt(0);
+          blocked.dispatchEvent(actAsThoughUserClickedFiltersAtTheStart);
+        }
     };
 })();
 
